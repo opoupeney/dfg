@@ -1,0 +1,37 @@
+{
+  "name": "dreamface-generator",
+  "description": "DreamFace' application generator",
+  "version": "1.0.0",
+  "author": "Olivier Poupeney <olivier@interactive-clouds.com>",
+  "contributors": [
+  ],
+  "keywords": [
+    "dreamface",
+    "framework",
+    "web",
+    "app",
+    "cloud"
+  ],
+  "repository": "opoupeney/dfg",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "2.7.1",
+    "mkdirp": "0.5.1",
+    "sorted-object": "1.0.0"
+  },
+  "main": "bin/dreamface",
+  "preferGlobal": true,
+  "bin": {
+    "dreamface": "./bin/dreamface"
+  },
+  "devDependencies": {
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "files": [
+    "LICENSE",
+    "bin/",
+    "templates/"
+  ]
+}
