@@ -128,11 +128,11 @@ function createEnvironment(env_name, path) {
       }
 
       if (program.mod == 'dev') {
-        mkdir('dev', function() {
+        mkdir(path + '/dev', function() {
           write(path + '/dev/package.json', JSON.stringify(pkg, null, 2));
           write(path + '/dev/app.js', app);
         });
-        mkdir('comp', function() {
+        mkdir(path + '/comp', function() {
           write(path + '/comp/package.json', JSON.stringify(pkg_comp, null, 2));
           write(path + '/comp/app.js', comp);
         });
