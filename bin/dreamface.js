@@ -21,7 +21,8 @@ before(program, 'outputHelp', function () {
 program
   .version(version)
   .usage('[options] [dir]')
-  .option('-mod, --mod', 'install a DreamFace module')
+  .option('-mod, --mod', 'install a DreamFace module [dev, dep or docker]')
+  .option('-dir, --dir', 'directory in which the module will be installed')
   .parse(process.argv);
 
 if (!exit.exited) {
@@ -80,7 +81,7 @@ function createEnvironment(env_name, path) {
 		if (launchedFromCmd()) {
 			console.log('     %s SET DEBUG=%s:* & npm start', prompt, env_name);
 		} else {
-			console.log('     %s DEBUG=%s:* npm start', prompt, env_name);
+			console.log('     %s DEBUG=%s:* npm start', prompt, env_name);e
 		}
 		console.log();
 	}
@@ -213,7 +214,7 @@ function loadTemplate(name) {
 
 function main() {
   // Path
-  var destinationPath = program.args.shift() || '.';
+  var destinationPath = program.dir || '.';
 
   // App name
   var appName = path.basename(path.resolve(destinationPath));
