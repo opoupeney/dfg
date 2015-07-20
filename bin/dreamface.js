@@ -95,11 +95,10 @@ function createEnvironment(env_name, path) {
 		  	// Generate app
 		  	var app = '';
 		  	var comp = null;
-		  	switch (program.mod) {
-		  		case 'dev':
+		  	if (program.mod == 'dev') {
 		  			app = loadTemplate('dev/app.js');
             comp = loadTemplate('comp/app.js');
-		  		case 'dep':
+		  	} else {
 		  			app = loadTemplate('dep/app.js');
 		  	}
 
@@ -129,6 +128,7 @@ function createEnvironment(env_name, path) {
 
       if (program.mod == 'dev') {
         mkdir(path + '/dev', function() {
+          console.log('debug dev:'+path);
           write(path + '/dev/package.json', JSON.stringify(pkg, null, 2));
           write(path + '/dev/app.js', app);
         });
@@ -214,8 +214,6 @@ function loadTemplate(name) {
 function main() {
   // Path
   var destinationPath = program.args.shift() || '.';
-  console.log('debug --mod:'+program.mod);
-  console.log('debug dir:'+destinationPath);
 
   // App name
   var appName = path.basename(path.resolve(destinationPath));

@@ -1,7 +1,7 @@
 var path = require('path');
-var dfx_dep = require('dreamface');
+var dfx_dev = require('dreamface');
 
-dfx_dep.init({
+dfx_dev.init({
 	server_port: 3000,
 	authConfPath: path.resolve(__dirname, './.auth.conf'),
 	edition: 'development',
@@ -10,4 +10,4 @@ dfx_dep.init({
     deployment_server_port: 3030
 });
 
-dfx_dep.start();
+dfx_dev.start();
