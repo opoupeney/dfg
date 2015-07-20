@@ -1,7 +1,7 @@
 {
   "name": "dreamface-generator",
   "description": "DreamFace Application Generator",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "contributors": [
     "Olivier Poupeney <olivier@interactive-clouds.com>"
   ],
