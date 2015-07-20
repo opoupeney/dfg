@@ -130,7 +130,6 @@ function createEnvironment(env_name, path) {
 
       if (program.dev) {
         mkdir(path + '/dev', function() {
-          console.log('debug dev:'+path);
           write(path + '/dev/package.json', JSON.stringify(pkg, null, 2));
           write(path + '/dev/app.js', app);
         });
