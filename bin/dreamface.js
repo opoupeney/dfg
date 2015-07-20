@@ -21,7 +21,9 @@ before(program, 'outputHelp', function () {
 program
   .version(version)
   .usage('[options] [dir]')
-  .option('-mod, --mod <mod>', 'install a DreamFace module', /^(dev|dep|docker)$/i)
+  .option('-dev, --dev', 'install the DreamFace development environment')
+  .option('-dep, --dep', 'install the DreamFace deployment environment')
+  .option('-docker, --docker', 'generate a dockerfile required to dockerize your deployed app')
   .parse(process.argv);
 
 if (!exit.exited) {
@@ -85,7 +87,7 @@ function createEnvironment(env_name, path) {
 		console.log();
 	}
 
-	if (program.mod==='docker') {
+	if (program.docker) {
 		
 
 	} else {
@@ -95,10 +97,10 @@ function createEnvironment(env_name, path) {
 		  	// Generate app
 		  	var app = '';
 		  	var comp = null;
-		  	if (program.mod == 'dev') {
+		  	if (program.dev == 'dev') {
 		  			app = loadTemplate('dev/app.js');
             comp = loadTemplate('comp/app.js');
-		  	} else {
+		  	} else if (program.dep) {
 		  			app = loadTemplate('dep/app.js');
 		  	}
 
@@ -126,7 +128,7 @@ function createEnvironment(env_name, path) {
         }
       }
 
-      if (program.mod == 'dev') {
+      if (program.dev) {
         mkdir(path + '/dev', function() {
           console.log('debug dev:'+path);
           write(path + '/dev/package.json', JSON.stringify(pkg, null, 2));
@@ -136,7 +138,7 @@ function createEnvironment(env_name, path) {
           write(path + '/comp/package.json', JSON.stringify(pkg_comp, null, 2));
           write(path + '/comp/app.js', comp);
         });
-      } else {
+      } else if (program.dep) {
         write(path + '/package.json', JSON.stringify(pkg, null, 2));
         write(path + '/app.js', app);
       }
