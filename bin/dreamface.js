@@ -97,7 +97,7 @@ function createEnvironment(env_name, path) {
 		  	// Generate app
 		  	var app = '';
 		  	var comp = null;
-		  	if (program.dev == 'dev') {
+		  	if (program.dev) {
 		  			app = loadTemplate('dev/app.js');
             comp = loadTemplate('comp/app.js');
 		  	} else if (program.dep) {
