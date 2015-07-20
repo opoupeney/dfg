@@ -111,7 +111,7 @@ function createEnvironment(env_name, path) {
 			  private: true,
 			  scripts: { start: 'node ./app.js' },
 			  dependencies: {
-            'dreamface': '~2.2.0',
+            'dreamface': '~2.2.1',
             'path': '~0.11.14'
 			  }
 			}
@@ -123,7 +123,7 @@ function createEnvironment(env_name, path) {
         private: true,
         scripts: { start: 'node ./app.js' },
         dependencies: {
-            'dreamface-compiler': '~1.0.0',
+            'dreamface-compiler': '~1.0.1',
             'path': '~0.11.14'
         }
       }
