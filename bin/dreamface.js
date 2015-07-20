@@ -214,6 +214,8 @@ function loadTemplate(name) {
 
 function main() {
   // Path
+  console.log('debug:'+program.dir);
+  console.log('debug:'+destinationPath);
   var destinationPath = program.dir || '.';
 
   // App name
