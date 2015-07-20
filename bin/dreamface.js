@@ -21,8 +21,7 @@ before(program, 'outputHelp', function () {
 program
   .version(version)
   .usage('[options] [dir]')
-  .option('-mod, --mod', 'install a DreamFace module [dev, dep or docker]')
-  .option('-dir, --dir', 'directory in which the module will be installed')
+  .option('-mod, --mod <mod>', 'install a DreamFace module', /^(dev|dep|docker)$/i)
   .parse(process.argv);
 
 if (!exit.exited) {
@@ -214,9 +213,9 @@ function loadTemplate(name) {
 
 function main() {
   // Path
-  console.log('debug:'+program.dir);
-  console.log('debug:'+destinationPath);
-  var destinationPath = program.dir || '.';
+  var destinationPath = program.args.shift() || '.';
+  console.log('debug --mod:'+program.mod);
+  console.log('debug dir:'+destinationPath);
 
   // App name
   var appName = path.basename(path.resolve(destinationPath));
