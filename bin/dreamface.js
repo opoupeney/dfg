@@ -93,7 +93,8 @@ function createEnvironment(env_name, path) {
 	  	var app_dev = loadTemplate('dev/app.js'),
           comp = loadTemplate('comp/app.js'),
 	  			app_dep = loadTemplate('dep/app.js'),
-          docker = loadTemplate('docker/Dockerfile');
+          docker = loadTemplate('docker/Dockerfile'),
+          rex = new RegExp('{path}', 'g');
 
 			var pkg_dev = {
         name: env_name+'_dev',
@@ -143,7 +144,7 @@ function createEnvironment(env_name, path) {
         write(path + '/dep/app.js', app_dep);
       });
 
-      docker = docker.replace('{path}', path);
+      docker = docker.replace(rex, path);
       write(path + '/Dockerfile', docker);
 
       complete();
