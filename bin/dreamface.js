@@ -21,9 +21,7 @@ before(program, 'outputHelp', function () {
 program
   .version(version)
   .usage('[options] [dir]')
-  .option('-dev, --dev', 'install the DreamFace development environment')
-  .option('-dep, --dep', 'install the DreamFace deployment environment')
-  .option('-docker, --docker', 'generate a dockerfile required to dockerize your deployed app')
+  .option('-init, --init', 'install the DreamFace cross platform')
   .parse(process.argv);
 
 if (!exit.exited) {
@@ -61,8 +59,6 @@ function confirm(msg, callback) {
 
 /**
  * Create application at the given directory `path`.
- *
- * @param {String} path
  */
 
 function createEnvironment(env_name, path) {
@@ -90,57 +86,65 @@ function createEnvironment(env_name, path) {
 	if (program.docker) {
 		
 
-	} else {
+	} else if (program.init) {
 
 		mkdir(path, function() {
 
-		  	// Generate app
-		  	var app = '';
-		  	var comp = null;
-		  	if (program.dev) {
-		  			app = loadTemplate('dev/app.js');
-            comp = loadTemplate('comp/app.js');
-		  	} else if (program.dep) {
-		  			app = loadTemplate('dep/app.js');
-		  	}
+	  	var app_dev = loadTemplate('dev/app.js'),
+          comp = loadTemplate('comp/app.js'),
+	  			app_dep = loadTemplate('dep/app.js'),
+          docker = loadTemplate('docker/Dockerfile');
 
-			// package.json
-			var pkg = {
+			var pkg_dev = {
         name: env_name+'_dev',
 			  version: '0.0.1',
 			  private: true,
 			  scripts: { start: 'node ./app.js' },
 			  dependencies: {
-            'dreamface': '~2.2.1',
+            'dreamface': '~2.2.2',
             'path': '~0.11.14'
 			  }
 			}
 
-      // compiler's package.json
       var pkg_comp = {
         name: env_name+'_comp',
         version: '0.0.1',
         private: true,
         scripts: { start: 'node ./app.js' },
         dependencies: {
-            'dreamface-compiler': '~1.0.1',
+            'dreamface-compiler': '~1.0.2',
             'path': '~0.11.14'
         }
       }
 
-      if (program.dev) {
-        mkdir(path + '/dev', function() {
-          write(path + '/dev/package.json', JSON.stringify(pkg, null, 2));
-          write(path + '/dev/app.js', app);
-        });
-        mkdir(path + '/comp', function() {
-          write(path + '/comp/package.json', JSON.stringify(pkg_comp, null, 2));
-          write(path + '/comp/app.js', comp);
-        });
-      } else if (program.dep) {
-        write(path + '/package.json', JSON.stringify(pkg, null, 2));
-        write(path + '/app.js', app);
+      var pkg_dep = {
+        name: env_name+'_dep',
+        version: '0.0.1',
+        private: true,
+        scripts: { start: 'node ./app.js' },
+        dependencies: {
+            'dreamface': '~2.2.2',
+            'path': '~0.11.14'
+        }
       }
+      
+      mkdir(path + '/auth');
+
+      mkdir(path + '/dev', function() {
+        write(path + '/dev/package.json', JSON.stringify(pkg_dev, null, 2));
+        write(path + '/dev/app.js', app_dev);
+      });
+      mkdir(path + '/comp', function() {
+        write(path + '/comp/package.json', JSON.stringify(pkg_comp, null, 2));
+        write(path + '/comp/app.js', comp);
+      });
+      mkdir(path + '/dep', function() {
+        write(path + '/dep/package.json', JSON.stringify(pkg_dep, null, 2));
+        write(path + '/dep/app.js', app_dep);
+      });
+
+      docker.replace('{path}', path);
+
       complete();
 		});
 	}
@@ -153,9 +157,6 @@ function copy_template(from, to) {
 
 /**
  * Check if the given directory `path` is empty.
- *
- * @param {String} path
- * @param {Function} fn
  */
 
 function emptyDirectory(path, fn) {
@@ -166,13 +167,10 @@ function emptyDirectory(path, fn) {
 };
 
 /**
- * Graceful exit for async STDIO
+ * Exit for async STDIO
  */
 
 function exit(code) {
-  // flush output for Node.js Windows pipe bug
-  // https://github.com/joyent/node/issues/6247 is just one bug example
-  // https://github.com/visionmedia/mocha/issues/333 has a good discussion
   function done() {
     if (!(draining--)) _exit(code);
   }
@@ -239,9 +237,6 @@ function main() {
 
 /**
  * echo str > path.
- *
- * @param {String} path
- * @param {String} str
  */
 
 function write(path, str, mode) {
@@ -251,9 +246,6 @@ function write(path, str, mode) {
 
 /**
  * Mkdir -p.
- *
- * @param {String} path
- * @param {Function} fn
  */
 
 function mkdir(path, fn) {

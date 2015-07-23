@@ -3,7 +3,7 @@ var dfx_dev = require('dreamface');
 
 dfx_dev.init({
 	server_port: 3000,
-	authConfPath: path.resolve(__dirname, './.auth.conf'),
+	authConfPath: path.resolve(__dirname, '../auth/.auth.conf'),
 	edition: 'development',
 	storage: 'mongod',
 	deployment_server_host: 'localhost',
