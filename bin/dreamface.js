@@ -143,7 +143,8 @@ function createEnvironment(env_name, path) {
         write(path + '/dep/app.js', app_dep);
       });
 
-      docker.replace('{path}', path);
+      docker = docker.replace('{path}', path);
+      write(path + '/Dockerfile', docker);
 
       complete();
 		});
