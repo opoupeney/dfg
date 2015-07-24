@@ -1,6 +1,6 @@
 # DFX Generator
 
-## Instalation instructions
+## Installation instructions
 
 DreamFace Generator creates all required
 
