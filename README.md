@@ -2,7 +2,7 @@
 
 ## Installation instructions
 
-DreamFace Generator creates all required
+DreamFace Generator creates all required files to setup a complete cloud application development environment using DreamFace X-Platform
 
 [License: DreamFace Open License](http://interactive-clouds.com/dreamface_license.txt)
 
@@ -30,6 +30,7 @@ DreamFace will synchronize its repository on MongoDB. An (hidden) .auth.conf fil
 	
 	// Start DreamFace Compiler
     [sample]		$ cd comp
+    [sample/comp]   $ sudo npm install
     [sample/comp]	$ node app.js
 
 
