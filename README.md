@@ -72,4 +72,4 @@ When your app is ready to go on production, you can deploy it in a Docker contai
 A new image containing the dfx deployment edition and your deployed application will be created
 To run the docker image inside a container:
 
-	$ docker build -i -t -d username/sample
+	$ docker run -i -t -d username/sample
