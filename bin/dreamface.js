@@ -21,7 +21,7 @@ before(program, 'outputHelp', function () {
 program
   .version(version)
   .usage('[options] [dir]')
-  .option('-init, --init', 'install the DreamFace cross platform')
+  .option('-init, --init', 'install DreamFace X-Platform')
   .parse(process.argv);
 
 if (!exit.exited) {
