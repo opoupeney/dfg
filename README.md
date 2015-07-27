@@ -38,8 +38,8 @@ DreamFace will synchronize its repository on MongoDB. The first time you login t
 
 When you logged in a (hidden) `.auth.conf` file was created (located into sample/auth). Edit this file and copy the `consumer_key` and `consumer_secret values`. Edit the `sample/comp/app.js` file and set the `consumer_key` and and `consumer_secret` of the compiler and save the file. It should look like this after your modification with your own consumer_key and consumer secret_values:
 
-   consumer_key    : 'b7d94f7d89a2',
-   consumer_secret : '0866b51e983ad2ea13aea768'
+* consumer_key    : 'b7d94f7d89a2',
+* consumer_secret : '0866b51e983ad2ea13aea768'
 
 This will initiate a secure connection between DreamFace and DreamFace Compiler. Now you can install and start the compiler.
 	
